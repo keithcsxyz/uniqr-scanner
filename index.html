@@ -543,6 +543,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
                   value === "" ||
                   (isNaN(value) &&
                     value.toLowerCase() !== "keith" &&
+                    value.toLowerCase() !== "camille" &&
                     value.toLowerCase() !== "rave")
                 ) {
                   Swal.showValidationMessage(
@@ -552,6 +553,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
                 }
                 if (
                   value.toLowerCase() === "keith" ||
+                  value.toLowerCase() === "camille" ||
                   value.toLowerCase() === "rave"
                 ) {
                   return true;
