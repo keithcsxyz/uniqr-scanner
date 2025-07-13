@@ -595,7 +595,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
             navigator.serviceWorker
-            .register("/service-worker.js")
+            .register("/uniqr-scanner/service-worker.js", { scope: "/uniqr-scanner/" })
             .then((reg) => {
                 console.log("Service Worker registered!", reg);
                 reg.update(); // 🔁 Force update check immediately
