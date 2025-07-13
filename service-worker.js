@@ -3,20 +3,20 @@ const CACHE_NAME = `uniqr-cache-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
   "./",
-  "https://keithcsxyz.github.io/uniqr-scanner/index.html",
-  "https://keithcsxyz.github.io/uniqr-scanner/manifest.json",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/favicon.ico",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon192.png",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/settings.png",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-180x180.png",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-120x120.png",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-144x144.png",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/css/bootstrap.min.css",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/js/sweetalert2.all.min.js",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/js/html5-qrcode.min.js",
-  "https://keithcsxyz.github.io/uniqr-scanner/qr-scanner-master/qr-scanner.min.js",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/sounds/beep.mp3"
+  "https://scanner.uniqr.click/uniqr-scanner/index.html",
+  "https://scanner.uniqr.click/uniqr-scanner/manifest.json",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/imgs/favicon.ico",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/imgs/uniqr-scanner-icon192.png",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/imgs/settings.png",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/imgs/apple-touch-icon-180x180.png",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/imgs/apple-touch-icon-120x120.png",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/imgs/apple-touch-icon-144x144.png",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/css/bootstrap.min.css",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/js/sweetalert2.all.min.js",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/js/html5-qrcode.min.js",
+  "https://scanner.uniqr.click/uniqr-scanner/qr-scanner-master/qr-scanner.min.js",
+  "https://scanner.uniqr.click/uniqr-scanner/assets/sounds/beep.mp3"
 ];
 
 // Install: Pre-cache all necessary files
@@ -58,7 +58,7 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       fetch(event.request).catch(() => {
         // For navigation requests, always serve the main page regardless of query parameters
-        return caches.match("https://keithcsxyz.github.io/uniqr-scanner/index.html");
+        return caches.match("https://scanner.uniqr.click/uniqr-scanner/index.html");
       })
     );
   } else {
