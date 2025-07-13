@@ -28,17 +28,17 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
     <meta name="theme-color" content="#ddf6d2" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/assets/imgs/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/assets/imgs/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-120x120.png">
 
 
     <link
-      href="assets/css/bootstrap.min.css"
+      href="https://keithcsxyz.github.io/uniqr-scanner/assets/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <!-- SweetAlert2 -->
-    <script src="assets/js/sweetalert2.all.min.js"></script>
+    <script src="https://keithcsxyz.github.io/uniqr-scanner/assets/js/sweetalert2.all.min.js"></script>
     <style>
       body {
         background: #f0f4f8;
@@ -242,7 +242,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
       </div>
     </div>
     <script type="module">
-      import QrScanner from "./qr-scanner-master/qr-scanner.min.js";
+      import QrScanner from "https://keithcsxyz.github.io/uniqr-scanner/qr-scanner-master/qr-scanner.min.js";
       const STORAGE_KEY = "qr_attendance";
       let scannedIDs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
       function getCurrentDate() {
@@ -595,7 +595,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
             navigator.serviceWorker
-            .register("/uniqr-scanner/service-worker.js", { scope: "/uniqr-scanner/" })
+            .register("https://keithcsxyz.github.io/uniqr-scanner/service-worker.js", { scope: "/uniqr-scanner/" })
             .then((reg) => {
                 console.log("Service Worker registered!", reg);
                 reg.update(); // 🔁 Force update check immediately
