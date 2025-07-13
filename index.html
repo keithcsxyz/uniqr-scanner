@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+<!-----
+
+ ▄████▄   ▒█████  ▓█████▄ ▓█████     ██▓  ██████     ██▓███   ▒█████  ▓█████▄▄▄█████▓ ██▀███ ▓██   ██▓    ▄▄▄       ███▄    █ ▓█████▄    ▓██   ██▓ ▒█████   █    ██     ▄▄▄██▀▀▀█    ██   ██████ ▄▄▄█████▓    ██▀███  ▓█████ ▄▄▄      ▓█████▄     ▄▄▄          ██▓     ██▓ ███▄    █ ▓█████ 
+▒██▀ ▀█  ▒██▒  ██▒▒██▀ ██▌▓█   ▀    ▓██▒▒██    ▒    ▓██░  ██▒▒██▒  ██▒▓█   ▀▓  ██▒ ▓▒▓██ ▒ ██▒▒██  ██▒   ▒████▄     ██ ▀█   █ ▒██▀ ██▌    ▒██  ██▒▒██▒  ██▒ ██  ▓██▒      ▒██   ██  ▓██▒▒██    ▒ ▓  ██▒ ▓▒   ▓██ ▒ ██▒▓█   ▀▒████▄    ▒██▀ ██▌   ▒████▄       ▓██▒    ▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒▓█    ▄ ▒██░  ██▒░██   █▌▒███      ▒██▒░ ▓██▄      ▓██░ ██▓▒▒██░  ██▒▒███  ▒ ▓██░ ▒░▓██ ░▄█ ▒ ▒██ ██░   ▒██  ▀█▄  ▓██  ▀█ ██▒░██   █▌     ▒██ ██░▒██░  ██▒▓██  ▒██░      ░██  ▓██  ▒██░░ ▓██▄   ▒ ▓██░ ▒░   ▓██ ░▄█ ▒▒███  ▒██  ▀█▄  ░██   █▌   ▒██  ▀█▄     ▒██░    ▒██▒▓██  ▀█ ██▒▒███   
+▒▓▓▄ ▄██▒▒██   ██░░▓█▄   ▌▒▓█  ▄    ░██░  ▒   ██▒   ▒██▄█▓▒ ▒▒██   ██░▒▓█  ▄░ ▓██▓ ░ ▒██▀▀█▄   ░ ▐██▓░   ░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█▄   ▌     ░ ▐██▓░▒██   ██░▓▓█  ░██░   ▓██▄██▓ ▓▓█  ░██░  ▒   ██▒░ ▓██▓ ░    ▒██▀▀█▄  ▒▓█  ▄░██▄▄▄▄██ ░▓█▄   ▌   ░██▄▄▄▄██    ▒██░    ░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+▒ ▓███▀ ░░ ████▓▒░░▒████▓ ░▒████▒   ░██░▒██████▒▒   ▒██▒ ░  ░░ ████▓▒░░▒████▒ ▒██▒ ░ ░██▓ ▒██▒ ░ ██▒▓░    ▓█   ▓██▒▒██░   ▓██░░▒████▓      ░ ██▒▓░░ ████▓▒░▒▒█████▓     ▓███▒  ▒▒█████▓ ▒██████▒▒  ▒██▒ ░    ░██▓ ▒██▒░▒████▒▓█   ▓██▒░▒████▓     ▓█   ▓██▒   ░██████▒░██░▒██░   ▓██░░▒████▒
+░ ░▒ ▒  ░░ ▒░▒░▒░  ▒▒▓  ▒ ░░ ▒░ ░   ░▓  ▒ ▒▓▒ ▒ ░   ▒▓▒░ ░  ░░ ▒░▒░▒░ ░░ ▒░ ░ ▒ ░░   ░ ▒▓ ░▒▓░  ██▒▒▒     ▒▒   ▓▒█░░ ▒░   ▒ ▒  ▒▒▓  ▒       ██▒▒▒ ░ ▒░▒░▒░ ░▒▓▒ ▒ ▒     ▒▓▒▒░  ░▒▓▒ ▒ ▒ ▒ ▒▓▒ ▒ ░  ▒ ░░      ░ ▒▓ ░▒▓░░░ ▒░ ░▒▒   ▓▒█░ ▒▒▓  ▒     ▒▒   ▓▒█░   ░ ▒░▓  ░░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+  ░  ▒     ░ ▒ ▒░  ░ ▒  ▒  ░ ░  ░    ▒ ░░ ░▒  ░ ░   ░▒ ░       ░ ▒ ▒░  ░ ░  ░   ░      ░▒ ░ ▒░▓██ ░▒░      ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ▒  ▒     ▓██ ░▒░   ░ ▒ ▒░ ░░▒░ ░ ░     ▒ ░▒░  ░░▒░ ░ ░ ░ ░▒  ░ ░    ░         ░▒ ░ ▒░ ░ ░  ░ ▒   ▒▒ ░ ░ ▒  ▒      ▒   ▒▒ ░   ░ ░ ▒  ░ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+░        ░ ░ ░ ▒   ░ ░  ░    ░       ▒ ░░  ░  ░     ░░       ░ ░ ░ ▒     ░    ░        ░░   ░ ▒ ▒ ░░       ░   ▒      ░   ░ ░  ░ ░  ░     ▒ ▒ ░░  ░ ░ ░ ▒   ░░░ ░ ░     ░ ░ ░   ░░░ ░ ░ ░  ░  ░    ░           ░░   ░    ░    ░   ▒    ░ ░  ░      ░   ▒        ░ ░    ▒ ░   ░   ░ ░    ░   
+░ ░          ░ ░     ░       ░  ░    ░        ░                  ░ ░     ░  ░           ░     ░ ░              ░  ░         ░    ░        ░ ░         ░ ░     ░         ░   ░     ░           ░                 ░        ░  ░     ░  ░   ░             ░  ░       ░  ░ ░           ░    ░  ░
+░                  ░                                                                          ░ ░                              ░          ░ ░                                                                                          ░                                                    
+
+
+
+In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left their mark.
+
+
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Offline QR Code Attendance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="manifest" href="/manifest.php?v=2.8.0.5-20250710">
+    <meta name="theme-color" content="#ddf6d2" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/imgs/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/imgs/apple-touch-icon-120x120.png">
+
+
+    <link
+      href="assets/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- SweetAlert2 -->
+    <script src="assets/js/sweetalert2.all.min.js"></script>
+    <style>
+      body {
+        background: #f0f4f8;
+        font-size: 16px;
+      }
+      .scanner-container {
+        max-width: 100%;
+        margin: auto;
+        padding: 1rem;
+      }
+      @media (min-width: 576px) {
+        .scanner-container {
+          max-width: 540px;
+          padding: 1.5rem;
+        }
+      }
+      @media (min-width: 768px) {
+        .scanner-container {
+          max-width: 720px;
+          padding: 2rem;
+        }
+      }
+      @media (min-width: 992px) {
+        .scanner-container {
+          max-width: 800px;
+        }
+      }
+      #reader {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      @media (max-width: 575px) {
+        #reader {
+          max-width: 280px;
+        }
+      }
+      h3 {
+        font-size: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        h3 {
+          font-size: 2rem;
+        }
+      }
+      .btn-group-responsive {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+      }
+      @media (min-width: 576px) {
+        .btn-group-responsive {
+          flex-direction: row;
+          justify-content: center;
+          width: auto;
+        }
+      }
+      .btn-responsive {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+      }
+      @media (min-width: 576px) {
+        .btn-responsive {
+          width: auto;
+          font-size: 1rem;
+        }
+      }
+      .table-responsive-custom {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .table-responsive-custom table {
+        min-width: 600px;
+      }
+      @media (max-width: 767px) {
+        .table-responsive-custom table {
+          font-size: 0.875rem;
+        }
+        .table th,
+        .table td {
+          padding: 0.5rem;
+          white-space: nowrap;
+        }
+      }
+      @media (max-width: 575px) {
+        .mb-3 {
+          margin-bottom: 1rem !important;
+        }
+        .mb-4 {
+          margin-bottom: 1.5rem !important;
+        }
+      }
+
+        /* camera focus highlight color*/
+      .scan-region-highlight-svg {
+        stroke: #27ae60 !important;
+      }
+      .code-outline-highlight {
+        stroke: #27ae60 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <!-- Settings Icon Button -->
+      <button id="settings-btn" title="Settings" style="position: fixed; top: 18px; right: 18px; z-index: 1051; background: none; border: none; font-size: 2rem; cursor: pointer; color: #333;">
+        <img src="assets/imgs/settings.png" alt="Settings" style="width: 2rem; height: 2rem;">
+      </button>
+      <!-- Settings Modal -->
+      <div id="settings-modal" style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); z-index: 2000; align-items: center; justify-content: center;">
+        <div style="background: #fff; color: #222; border-radius: 12px; max-width: 340px; width: 90vw; margin: auto; padding: 2rem 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18); position: relative;">
+          <button id="close-settings" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+          <h5 style="margin-bottom: 1.5rem;">Settings</h5>
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="dark-mode-toggle">
+            <label class="form-check-label" for="dark-mode-toggle">Dark Mode</label>
+          </div>
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="sound-toggle">
+            <label class="form-check-label" for="sound-toggle">Sound On</label>
+          </div>
+
+            <div style="text-align: center; font-size: 0.85rem; color: #666; margin-top: 1rem;">
+                UniQR Code Attendance Scanner <br><strong>V2.8.0.6-20250710</strong><br>
+                <span style="font-size: 0.8rem;">&lt;/keith &amp; rave&gt;</span>
+            </div>
+
+        </div>
+      </div>
+      <!-- Beep Audio -->
+      <audio id="beep-audio" src="assets/sounds/beep.mp3" preload="auto"></audio>
+      <div class="scanner-container text-center">
+        <h3 class="mb-3">UniQR Code Attendance Scanner</h3>
+        <video
+          id="qr-video"
+          class="mb-4"
+          style="width: 100%; max-width: 400px; border-radius: 8px"
+        ></video>
+        <div class="mb-3 d-flex justify-content-center gap-2 flex-wrap">
+          <button
+            id="camera-switch-btn"
+            class="btn btn-primary btn-responsive"
+            style="max-width: 200px; min-width: 150px"
+          >
+            📷 Switch Camera
+          </button>
+          <button
+            id="flash-btn"
+            class="btn btn-warning btn-responsive"
+            style="display: none; max-width: 200px; min-width: 150px"
+          >
+            💡 Flash: <span id="flash-state">Off</span>
+          </button>
+        </div>
+        <div class="mb-2 text-muted" style="font-size: 0.95rem">
+          <span
+            ><strong>Required Format:</strong> CAS-[DEPARTMENT]-[NUMBER] (e.g.,
+            CAS-CS-001, CAS-ECON-002)<br />
+            <strong>Supported Courses:</strong> CS, ECON, ENTREP, BPA, IS (under the College of Arts and Sciences - CAS)<br />
+            <em
+              >Tip: For best results scanning from a screen, increase the QR
+              code size, maximize screen brightness, and avoid glare or
+              reflections.</em
+            ></span
+          >
+        </div>
+        <div class="mb-3">
+          <div id="scan-error" class="text-danger mt-2"></div>
+        </div>
+        <div class="btn-group-responsive mb-3">
+          <button
+            class="btn btn-success btn-responsive"
+            onclick="exportToCSV()"
+          >
+            <i class="fas fa-download d-none d-sm-inline"></i>
+            Export CSV
+          </button>
+          <button
+            class="btn btn-danger btn-responsive"
+            onclick="confirmClear()"
+          >
+            <i class="fas fa-trash d-none d-sm-inline"></i>
+            Clear Data
+          </button>
+        </div>
+        <div class="table-responsive-custom">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>CHECK-IN DATE</th>
+                <th>CHECK-IN TIME</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      import QrScanner from "./qr-scanner-master/qr-scanner.min.js";
+      const STORAGE_KEY = "qr_attendance";
+      let scannedIDs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      function getCurrentDate() {
+        const today = new Date();
+        const month = String(today.getMonth() + 1).padStart(2, "0");
+        const day = String(today.getDate()).padStart(2, "0");
+        const year = today.getFullYear();
+        return `${month}/${day}/${year}`;
+      }
+      function getCurrentTime() {
+        const now = new Date();
+        return now.toTimeString().split(" ")[0];
+      }
+      function renderTable() {
+        const tbody = document.getElementById("attendanceBody");
+        tbody.innerHTML = "";
+        scannedIDs.forEach((entry) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+        <td>${entry.id}</td>
+        <td></td>
+        <td>${entry.date}</td>
+        <td>${entry.time}</td>
+      `;
+          tbody.appendChild(row);
+        });
+      }
+      // Function to validate QR code format
+      function isValidQRFormat(id) {
+        // Pattern: CAS-[DEPARTMENT]-[NUMBER]
+        // Departments: CS, ECON, ENTREP, BPA, IS
+        // Numbers: 001, 002, 003, etc. (can go up)
+        const pattern = /^CAS-(CS|ECON|ENTREP|BPA|IS)-\d{3,}$/;
+        return pattern.test(id);
+      }
+      function addEntry(id) {
+        // First check if the QR code format is valid
+        if (!isValidQRFormat(id)) {
+          Swal.fire({
+            icon: "error",
+            title: "Invalid QR Code",
+            text: `QR code "${id}" does not match the required format. Expected format: CAS-[DEPARTMENT]-[NUMBER] (e.g., CAS-CS-001)`,
+            timer: 3000,
+            showConfirmButton: true,
+          });
+          return;
+        }
+        const exists = scannedIDs.some((entry) => entry.id === id);
+        if (!exists) {
+          const date = getCurrentDate();
+          const time = getCurrentTime();
+          scannedIDs.push({ id, date, time });
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(scannedIDs));
+          renderTable();
+          // Play beep if sound is enabled
+          if (localStorage.getItem('uniqr_sound') !== 'off') {
+            const beep = document.getElementById('beep-audio');
+            if (beep) { beep.currentTime = 0; beep.play(); }
+          }
+          // Show success message for valid QR code
+          Swal.fire({
+            icon: "success",
+            title: "QR Code Scanned",
+            text: `Successfully scanned: ${id}`,
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } else {
+          Swal.fire({
+            icon: "info",
+            title: "Duplicate Detected",
+            text: `ID "${id}" has already been scanned.`,
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        }
+      }
+      function exportToCSV() {
+        let csv = "ID,NAME,CHECK-IN DATE,CHECK-IN TIME\n";
+        scannedIDs.forEach((entry) => {
+          csv += `${entry.id},,${entry.date},${entry.time}\n`;
+        });
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "attendance.csv";
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+      function confirmClear() {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "This will delete all scanned attendance data!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#6c757d",
+          confirmButtonText: "Yes, clear it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            function getRandomInt(min, max) {
+              return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            const patterns = [
+              () => `${getRandomInt(2,10)} + ${getRandomInt(2,10)} * ${getRandomInt(2,10)} - ${getRandomInt(2,10)}`,
+              () => `(${getRandomInt(2,10)} + ${getRandomInt(2,10)}) * ${getRandomInt(2,10)}`,
+              () => `${getRandomInt(2,10)} * (${getRandomInt(2,10)} - ${getRandomInt(2,10)}) + ${getRandomInt(2,10)}`,
+              () => `${getRandomInt(2,10)} + ${getRandomInt(2,10)} * (${getRandomInt(2,10)} + ${getRandomInt(2,10)})`,
+              () => `(${getRandomInt(2,10)} + ${getRandomInt(2,10)}) * (${getRandomInt(2,10)} - ${getRandomInt(2,10)})`,
+              () => `${getRandomInt(2,10)} * ${getRandomInt(2,10)} + ${getRandomInt(2,10)} / ${getRandomInt(2,10)}`,
+              () => `(${getRandomInt(2,10)} + ${getRandomInt(2,10)}) ** 2`,
+              () => `${getRandomInt(2,10)} + ${getRandomInt(2,10)} - ${getRandomInt(2,10)} * ${getRandomInt(2,10)} / ${getRandomInt(2,10)}`,
+              () => `(${getRandomInt(2,10)} * ${getRandomInt(2,10)}) + (${getRandomInt(2,10)} / ${getRandomInt(2,10)}) - ${getRandomInt(2,10)}`,
+              () => `${getRandomInt(2,10)} + (${getRandomInt(2,10)} * ${getRandomInt(2,10)}) - (${getRandomInt(2,10)} / ${getRandomInt(2,10)})`
+            ];
+            const idx = Math.floor(Math.random() * patterns.length);
+            let expr = patterns[idx]();
+            expr = expr.replace(/\^/g, "**");
+            let displayExpr = expr
+              .replace(/\*\*/g, "^")
+              .replace(/\*/g, "×")
+              .replace(/\//g, "÷");
+            let answer;
+            try {
+              answer = eval(expr);
+            } catch (e) {
+              answer = null;
+            }
+            Swal.fire({
+              title: 'Answer to proceed',
+              html: `<b>Solve:</b> <span style="font-size:1.2em">${displayExpr}</span>`,
+              input: 'text',
+              inputPlaceholder: 'Enter your answer',
+              showCancelButton: true,
+              confirmButtonText: 'Submit',
+              preConfirm: (value) => {
+                if (value === '' || isNaN(value)) {
+                  Swal.showValidationMessage('Please enter a valid number');
+                  return false;
+                }
+                const userAns = parseFloat(value);
+                if (answer === null || Math.abs(userAns - answer) > 0.0001) {
+                  Swal.showValidationMessage('Incorrect answer. Try again!');
+                  return false;
+                }
+                return true;
+              }
+            }).then((pemdasResult) => {
+              if (pemdasResult.isConfirmed) {
+                localStorage.removeItem(STORAGE_KEY);
+                scannedIDs = [];
+                renderTable();
+                Swal.fire("Cleared!", "Attendance has been deleted.", "success");
+              }
+            });
+          }
+        });
+      }
+      const video = document.getElementById("qr-video");
+      const scanErrorDiv = document.getElementById("scan-error");
+      const flashBtn = document.getElementById("flash-btn");
+      const flashState = document.getElementById("flash-state");
+      const cameraSwitchBtn = document.getElementById("camera-switch-btn");
+      let currentCamera = "environment";
+      let availableCameras = [];
+      const scanner = new QrScanner(
+        video,
+        (result) => {
+          addEntry(result.data.trim());
+          scanErrorDiv.textContent = "";
+        },
+        {
+          onDecodeError: (error) => {
+            scanErrorDiv.textContent =
+              "No QR code detected. Try adjusting lighting, focus, or QR code position.";
+          },
+          preferredCamera: "environment",
+          maxScansPerSecond: 20,
+          highlightScanRegion: true,
+          highlightCodeOutline: true,
+          returnDetailedScanResult: true,
+        }
+      );
+      const updateFlashAvailability = () => {
+        scanner
+          .hasFlash()
+          .then((hasFlash) => {
+            flashBtn.style.display = hasFlash ? "inline-block" : "none";
+          })
+          .catch(() => {
+            flashBtn.style.display = "none";
+          });
+      };
+      flashBtn.addEventListener("click", () => {
+        scanner
+          .toggleFlash()
+          .then(() => {
+            const isFlashOn = scanner.isFlashOn();
+            flashState.textContent = isFlashOn ? "On" : "Off";
+            flashBtn.className = isFlashOn
+              ? "btn btn-warning btn-responsive"
+              : "btn btn-secondary btn-responsive";
+          })
+          .catch(() => {
+            scanErrorDiv.textContent = "Flash not supported on this device.";
+          });
+      });
+      cameraSwitchBtn.addEventListener("click", () => {
+        if (availableCameras.length > 1) {
+          currentCamera = currentCamera === "user" ? "environment" : "user";
+          scanner
+            .setCamera(currentCamera)
+            .then(() => {
+              updateFlashAvailability();
+              cameraSwitchBtn.innerHTML =
+                currentCamera === "environment"
+                  ? "📷 Back Camera"
+                  : "📷 Front Camera";
+            })
+            .catch((err) => {
+              scanErrorDiv.textContent = "Failed to switch camera.";
+              console.error("Camera switch error:", err);
+            });
+        }
+      });
+      const startScanner = async () => {
+        try {
+          await scanner.start();
+          updateFlashAvailability();
+          availableCameras = await QrScanner.listCameras(true);
+          if (availableCameras.length > 1) {
+            cameraSwitchBtn.style.display = "inline-block";
+            cameraSwitchBtn.innerHTML =
+              currentCamera === "environment"
+                ? "📷 Back Camera"
+                : "📷 Front Camera";
+          } else {
+            cameraSwitchBtn.style.display = "none";
+          }
+          scanErrorDiv.textContent = "";
+        } catch (err) {
+          scanErrorDiv.textContent =
+            "Unable to start camera. Please check camera permissions or try a different browser/device.";
+          console.error("Scanner start error:", err);
+        }
+      };
+      QrScanner.hasCamera().then((hasCamera) => {
+        if (hasCamera) {
+          startScanner();
+        } else {
+          scanErrorDiv.textContent = "No camera found on this device.";
+        }
+      });
+      window.exportToCSV = exportToCSV;
+      window.confirmClear = confirmClear;
+      renderTable();
+    </script>
+    <script>
+      // Settings modal logic, dark mode, and sound toggle
+      (function() {
+        const settingsBtn = document.getElementById('settings-btn');
+        const settingsModal = document.getElementById('settings-modal');
+        const closeSettings = document.getElementById('close-settings');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const soundToggle = document.getElementById('sound-toggle');
+        const body = document.body;
+        // Only run if all elements exist
+        if (settingsBtn && settingsModal && closeSettings && darkModeToggle && soundToggle) {
+          function applySettings() {
+            const infoSection = document.querySelector('.mb-2.text-muted');
+            if (localStorage.getItem('uniqr_dark') === 'on') {
+              body.style.background = '#181a1b';
+              body.style.color = '#f0f4f8';
+              darkModeToggle.checked = true;
+              settingsModal.querySelector('div').style.background = '#23272b';
+              settingsModal.querySelector('div').style.color = '#f0f4f8';
+              if (infoSection) {
+                infoSection.style.color = '#fff';
+                const infoSpan = infoSection.querySelector('span');
+                if (infoSpan) infoSpan.style.setProperty('color', '#fff', 'important');
+                infoSection.querySelectorAll('strong, em').forEach(el => {
+                  el.style.setProperty('color', '#fff', 'important');
+                });
+              }
+            } else {
+              body.style.background = '';
+              body.style.color = '';
+              darkModeToggle.checked = false;
+              settingsModal.querySelector('div').style.background = '#fff';
+              settingsModal.querySelector('div').style.color = '#222';
+              if (infoSection) {
+                infoSection.style.color = '';
+                const infoSpan = infoSection.querySelector('span');
+                if (infoSpan) infoSpan.style.removeProperty('color');
+                infoSection.querySelectorAll('strong, em').forEach(el => {
+                  el.style.removeProperty('color');
+                });
+              }
+            }
+            if (localStorage.getItem('uniqr_sound') !== 'off') {
+              soundToggle.checked = true;
+            } else {
+              soundToggle.checked = false;
+            }
+          }
+          settingsBtn.onclick = () => { settingsModal.style.display = 'flex'; };
+          closeSettings.onclick = () => { settingsModal.style.display = 'none'; };
+          settingsModal.onclick = (e) => { if (e.target === settingsModal) settingsModal.style.display = 'none'; };
+          darkModeToggle.onchange = function() {
+            if (this.checked) {
+              localStorage.setItem('uniqr_dark', 'on');
+            } else {
+              localStorage.removeItem('uniqr_dark');
+            }
+            applySettings();
+          };
+          soundToggle.onchange = function() {
+            if (this.checked) {
+              localStorage.removeItem('uniqr_sound');
+            } else {
+              localStorage.setItem('uniqr_sound', 'off');
+            }
+          };
+          applySettings();
+        }
+      })();
+      // Show greeting modal on first open
+      (function() {
+        const GREETING_KEY = 'uniqr_greeting_shown';
+        if (!localStorage.getItem(GREETING_KEY)) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Welcome to UniQR Scan!',
+            html: `<b>UniQR Scan</b> is a QR code scanner web app designed exclusively for the UniQR attendance system.<br><br>
+                  <b>How it works:</b> Scan UniQR codes to record attendance. All scans are stored locally on your device.<br><br>
+                  <b>Works Offline:</b> This web app is fully functional even without an internet connection.<br><br>
+                  <b>Add to Home Screen:</b><br>
+                  <ul style='text-align:left;max-width:350px;margin:auto;'>
+                    <li><b>Android (Chrome):</b> Tap the <b>⋮</b> menu &rarr; <b>Add to Home screen</b>.</li>
+                    <li><b>iPhone (Safari):</b> Tap <b>Share</b> <span style='font-size:1.2em;'>[&#x1f5d2;]</span> &rarr; <b>Add to Home Screen</b>.</li>
+                    <li><b>Desktop:</b> Click the <b>install</b> icon in the address bar.</li>
+                  </ul>
+                  <br>Enjoy fast, secure, and offline QR code scanning!`,
+            confirmButtonText: 'Got it!'
+          });
+          localStorage.setItem(GREETING_KEY, '1');
+        }
+      })();
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((reg) => {
+                console.log("Service Worker registered!", reg);
+                reg.update(); // 🔁 Force update check immediately
+            })
+            .catch((err) =>
+                console.error("Service Worker registration failed:", err)
+            );
+        });
+      }
+    </script>
+  </body>
+</html>
