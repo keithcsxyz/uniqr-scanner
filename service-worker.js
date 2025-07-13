@@ -16,7 +16,7 @@ const PRECACHE_URLS = [
   "/assets/js/sweetalert2.all.min.js",
   "/assets/js/html5-qrcode.min.js",
   "/qr-scanner-master/qr-scanner.min.js",
-  "/assets/sounds/beep.mp3"
+  //"/assets/sounds/beep.mp3"
 ];
 
 // Install: Pre-cache files
