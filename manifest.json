@@ -1,19 +1,19 @@
 {
   "name": "UniQR Attendance Scanner V2.8.0.8-20250713",
   "short_name": "UniQR Scan",
-  "start_url": "https://scanner.uniqr.click/uniqr-scanner/index.html",
-  "scope": "./",
+  "start_url": "/uniqr-scanner/index.html",
+  "scope": "/uniqr-scanner/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ddf6d2",
   "icons": [
     {
-      "src": "https://scanner.uniqr.click/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
+      "src": "/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon192.png",
+      "src": "/uniqr-scanner/assets/imgs/uniqr-scanner-icon192.png",
       "sizes": "192x192",
       "type": "image/png"
     }
