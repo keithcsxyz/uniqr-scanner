@@ -3,11 +3,11 @@ const CACHE_NAME = `uniqr-cache-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
   "./",
-  "./index.html",
+  "https://keithcsxyz.github.io/uniqr-scanner/index.html",
   "https://keithcsxyz.github.io/uniqr-scanner/manifest.json",
   "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/favicon.ico",
   "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
-  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
+  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon192.png",
   "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/settings.png",
   "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-180x180.png",
   "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-120x120.png",
