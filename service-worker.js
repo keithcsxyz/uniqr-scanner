@@ -4,19 +4,19 @@ const CACHE_NAME = `uniqr-cache-${CACHE_VERSION}`;
 const PRECACHE_URLS = [
   "./",
   "./index.html",
-  "./manifest.json",
-  "./favicon.ico",
-  "./icon512",
-  "./icon192",
-  "./assets/imgs/settings.png",
-  "./assets/imgs/apple-touch-icon-180x180.png",
-  "./assets/imgs/apple-touch-icon-120x120.png",
-  "./assets/imgs/apple-touch-icon-144x144.png",
-  "./assets/css/bootstrap.min.css",
-  "./assets/js/sweetalert2.all.min.js",
-  "./assets/js/html5-qrcode.min.js",
-  "./qr-scanner-master/qr-scanner.min.js",
-  "./assets/sounds/beep.mp3"
+  "https://keithcsxyz.github.io/uniqr-scanner/manifest.json",
+  "https://keithcsxyz.github.io/uniqr-scanner/favicon.ico",
+  "https://keithcsxyz.github.io/uniqr-scanner/uniqr-scanner-icon512.png",
+  "https://keithcsxyz.github.io/uniqr-scanner/uniqr-scanner-icon512.png",
+  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/settings.png",
+  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-180x180.png",
+  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-120x120.png",
+  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-144x144.png",
+  "https://keithcsxyz.github.io/uniqr-scanner/assets/css/bootstrap.min.css",
+  "https://keithcsxyz.github.io/uniqr-scanner/assets/js/sweetalert2.all.min.js",
+  "https://keithcsxyz.github.io/uniqr-scanner/assets/js/html5-qrcode.min.js",
+  "https://keithcsxyz.github.io/uniqr-scanner/qr-scanner-master/qr-scanner.min.js",
+  "https://keithcsxyz.github.io/uniqr-scanner/assets/sounds/beep.mp3"
 ];
 
 // Install: Pre-cache all necessary files
