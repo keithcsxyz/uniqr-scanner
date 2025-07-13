@@ -24,21 +24,21 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
     <meta charset="UTF-8" />
     <title>Offline QR Code Attendance</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="manifest" href="./manifest.json?v=2.8.0.7-20250713">
+    <link rel="manifest" href="./manifest.json?v=2.8.0.8-20250713">
     <meta name="theme-color" content="#ddf6d2" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://scanner.uniqr.click/uniqr-scanner/assets/imgs/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://scanner.uniqr.click/uniqr-scanner/assets/imgs/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://scanner.uniqr.click/uniqr-scanner/assets/imgs/apple-touch-icon-120x120.png">
 
 
     <link
-      href="https://keithcsxyz.github.io/uniqr-scanner/assets/css/bootstrap.min.css"
+      href="https://scanner.uniqr.click/uniqr-scanner/assets/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <!-- SweetAlert2 -->
-    <script src="https://keithcsxyz.github.io/uniqr-scanner/assets/js/sweetalert2.all.min.js"></script>
+    <script src="https://scanner.uniqr.click/uniqr-scanner/assets/js/sweetalert2.all.min.js"></script>
     <style>
       body {
         background: #f0f4f8;
@@ -164,7 +164,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
           </div>
 
             <div style="text-align: center; font-size: 0.85rem; color: #666; margin-top: 1rem;">
-                UniQR Code Attendance Scanner <br><strong>V2.8.0.6-20250710</strong><br>
+                UniQR Code Attendance Scanner <br><strong>V2.8.0.8-20250713</strong><br>
                 <span style="font-size: 0.8rem;">&lt;/keith &amp; rave&gt;</span>
             </div>
 
@@ -242,7 +242,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
       </div>
     </div>
     <script type="module">
-      import QrScanner from "https://keithcsxyz.github.io/uniqr-scanner/qr-scanner-master/qr-scanner.min.js";
+      import QrScanner from "https://scanner.uniqr.click/uniqr-scanner/qr-scanner-master/qr-scanner.min.js";
       const STORAGE_KEY = "qr_attendance";
       let scannedIDs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
       function getCurrentDate() {
