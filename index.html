@@ -28,17 +28,17 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
     <meta name="theme-color" content="#ddf6d2" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="https://scanner.uniqr.click/uniqr-scanner/assets/imgs/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="https://scanner.uniqr.click/uniqr-scanner/assets/imgs/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="https://scanner.uniqr.click/uniqr-scanner/assets/imgs/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/imgs/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./assets/imgs/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./assets/imgs/apple-touch-icon-120x120.png">
 
 
     <link
-      href="https://scanner.uniqr.click/uniqr-scanner/assets/css/bootstrap.min.css"
+      href="./assets/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <!-- SweetAlert2 -->
-    <script src="https://scanner.uniqr.click/uniqr-scanner/assets/js/sweetalert2.all.min.js"></script>
+    <script src="./assets/js/sweetalert2.all.min.js"></script>
     <style>
       body {
         background: #f0f4f8;
@@ -242,7 +242,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
       </div>
     </div>
     <script type="module">
-      import QrScanner from "https://scanner.uniqr.click/uniqr-scanner/qr-scanner-master/qr-scanner.min.js";
+      import QrScanner from "./qr-scanner-master/qr-scanner.min.js";
       const STORAGE_KEY = "qr_attendance";
       let scannedIDs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
       function getCurrentDate() {
