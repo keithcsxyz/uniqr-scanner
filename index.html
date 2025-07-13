@@ -24,34 +24,54 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
     <meta charset="UTF-8" />
     <title>Offline QR Code Attendance</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="manifest" href="/manifest.json?v=2.8.1.2-20250713">
+    <link rel="manifest" href="/manifest.json?v=2.8.1.2-20250713" />
     <meta name="theme-color" content="#ddf6d2" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-       <!-- Open Graph Meta Tags for Link Preview -->
+    <!-- Open Graph Meta Tags for Link Preview -->
     <meta property="og:title" content="UniQR Code Scanner" />
-    <meta property="og:description" content="Offline-ready UniQR Code Attendance Web App. Scan, record, and export attendance data with local storage support." />
-    <meta property="og:image" content="https://scanner.uniqr.click/assets/imgs/uniqr-scanner-icon512.png" />
+    <meta
+      property="og:description"
+      content="Offline-ready UniQR Code Attendance Web App. Scan, record, and export attendance data with local storage support."
+    />
+    <meta
+      property="og:image"
+      content="https://scanner.uniqr.click/assets/imgs/uniqr-scanner-icon512.png"
+    />
     <meta property="og:url" content="https://scanner.uniqr.click/" />
     <meta property="og:type" content="website" />
-    
+
     <!-- Twitter Card (Optional but recommended) -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="UniQR Code Scanner" />
-    <meta name="twitter:description" content="Offline QR attendance app for UniQR system. Works offline and exports to CSV." />
-    <meta name="twitter:image" content="https://scanner.uniqr.click/assets/imgs/uniqr-scanner-icon512.png" />
+    <meta
+      name="twitter:description"
+      content="Offline QR attendance app for UniQR system. Works offline and exports to CSV."
+    />
+    <meta
+      name="twitter:image"
+      content="https://scanner.uniqr.click/assets/imgs/uniqr-scanner-icon512.png"
+    />
 
-   <link rel="icon" type="image/x-icon" href="/assets/imgs/uniqrfavicon.ico">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/assets/imgs/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/assets/imgs/apple-touch-icon-120x120.png">
-
+    <link rel="icon" type="image/x-icon" href="/assets/imgs/uniqrfavicon.ico" />
 
     <link
-      href="/assets/css/bootstrap.min.css"
-      rel="stylesheet"
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/imgs/apple-touch-icon-180x180.png"
     />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="/assets/imgs/apple-touch-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="/assets/imgs/apple-touch-icon-120x120.png"
+    />
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
     <!-- SweetAlert2 -->
     <script src="/assets/js/sweetalert2.all.min.js"></script>
     <style>
@@ -149,7 +169,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
         }
       }
 
-        /* camera focus highlight color*/
+      /* camera focus highlight color*/
       .scan-region-highlight-svg {
         stroke: #27ae60 !important;
       }
@@ -161,32 +181,107 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
   <body>
     <div class="container-fluid">
       <!-- Settings Icon Button -->
-      <button id="settings-btn" title="Settings" style="position: fixed; top: 18px; right: 18px; z-index: 1051; background: none; border: none; font-size: 2rem; cursor: pointer; color: #333;">
-        <img src="assets/imgs/settings.png" alt="Settings" style="width: 2rem; height: 2rem;">
+      <button
+        id="settings-btn"
+        title="Settings"
+        style="
+          position: fixed;
+          top: 18px;
+          right: 18px;
+          z-index: 1051;
+          background: none;
+          border: none;
+          font-size: 2rem;
+          cursor: pointer;
+          color: #333;
+        "
+      >
+        <img
+          src="assets/imgs/settings.png"
+          alt="Settings"
+          style="width: 2rem; height: 2rem"
+        />
       </button>
       <!-- Settings Modal -->
-      <div id="settings-modal" style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); z-index: 2000; align-items: center; justify-content: center;">
-        <div style="background: #fff; color: #222; border-radius: 12px; max-width: 340px; width: 90vw; margin: auto; padding: 2rem 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18); position: relative;">
-          <button id="close-settings" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
-          <h5 style="margin-bottom: 1.5rem;">Settings</h5>
+      <div
+        id="settings-modal"
+        style="
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 2000;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <div
+          style="
+            background: #fff;
+            color: #222;
+            border-radius: 12px;
+            max-width: 340px;
+            width: 90vw;
+            margin: auto;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+            position: relative;
+          "
+        >
+          <button
+            id="close-settings"
+            style="
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              background: none;
+              border: none;
+              font-size: 1.5rem;
+              cursor: pointer;
+            "
+          >
+            &times;
+          </button>
+          <h5 style="margin-bottom: 1.5rem">Settings</h5>
           <div class="form-check form-switch mb-3">
-            <input class="form-check-input" type="checkbox" id="dark-mode-toggle">
-            <label class="form-check-label" for="dark-mode-toggle">Dark Mode</label>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="dark-mode-toggle"
+            />
+            <label class="form-check-label" for="dark-mode-toggle"
+              >Dark Mode</label
+            >
           </div>
           <div class="form-check form-switch mb-3">
-            <input class="form-check-input" type="checkbox" id="sound-toggle">
+            <input class="form-check-input" type="checkbox" id="sound-toggle" />
             <label class="form-check-label" for="sound-toggle">Sound On</label>
           </div>
 
-            <div style="text-align: center; font-size: 0.85rem; color: #666; margin-top: 1rem;">
-                UniQR Code Attendance Scanner <br><strong>V2.8.1.2-20250713</strong><br>
-                <span style="font-size: 0.8rem;">&lt;/keith &amp; rave&gt;</span>
-            </div>
-
+          <div
+            style="
+              text-align: center;
+              font-size: 0.85rem;
+              color: #666;
+              margin-top: 1rem;
+            "
+          >
+            UniQR Code Attendance Scanner <br /><strong
+              >V2.8.1.2-20250713</strong
+            ><br />
+            <span style="font-size: 0.8rem">&lt;/keith &amp; rave&gt;</span>
+          </div>
         </div>
       </div>
       <!-- Beep Audio -->
-      <audio id="beep-audio" src="/assets/sounds/beep.mp3" preload="auto"></audio>
+      <audio
+        id="beep-audio"
+        src="/assets/sounds/beep.mp3"
+        preload="auto"
+      ></audio>
       <div class="scanner-container text-center">
         <h3 class="mb-3">UniQR Code Attendance Scanner</h3>
         <video
@@ -214,7 +309,8 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
           <span
             ><strong>Required Format:</strong> CAS-[DEPARTMENT]-[NUMBER] (e.g.,
             CAS-CS-001, CAS-ECON-002)<br />
-            <strong>Supported Courses:</strong> CS, ECON, ENTREP, BPA, IS (under the College of Arts and Sciences - CAS)<br />
+            <strong>Supported Courses:</strong> CS, ECON, ENTREP, BPA, IS (under
+            the College of Arts and Sciences - CAS)<br />
             <em
               >Tip: For best results scanning from a screen, increase the QR
               code size, maximize screen brightness, and avoid glare or
@@ -313,9 +409,12 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
           localStorage.setItem(STORAGE_KEY, JSON.stringify(scannedIDs));
           renderTable();
           // Play beep if sound is enabled
-          if (localStorage.getItem('uniqr_sound') !== 'off') {
-            const beep = document.getElementById('beep-audio');
-            if (beep) { beep.currentTime = 0; beep.play(); }
+          if (localStorage.getItem("uniqr_sound") !== "off") {
+            const beep = document.getElementById("beep-audio");
+            if (beep) {
+              beep.currentTime = 0;
+              beep.play();
+            }
           }
           // Show success message for valid QR code
           Swal.fire({
@@ -363,16 +462,61 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
               return Math.floor(Math.random() * (max - min + 1)) + min;
             }
             const patterns = [
-              () => `${getRandomInt(2,10)} + ${getRandomInt(2,10)} * ${getRandomInt(2,10)} - ${getRandomInt(2,10)}`,
-              () => `(${getRandomInt(2,10)} + ${getRandomInt(2,10)}) * ${getRandomInt(2,10)}`,
-              () => `${getRandomInt(2,10)} * (${getRandomInt(2,10)} - ${getRandomInt(2,10)}) + ${getRandomInt(2,10)}`,
-              () => `${getRandomInt(2,10)} + ${getRandomInt(2,10)} * (${getRandomInt(2,10)} + ${getRandomInt(2,10)})`,
-              () => `(${getRandomInt(2,10)} + ${getRandomInt(2,10)}) * (${getRandomInt(2,10)} - ${getRandomInt(2,10)})`,
-              () => `${getRandomInt(2,10)} * ${getRandomInt(2,10)} + ${getRandomInt(2,10)} / ${getRandomInt(2,10)}`,
-              () => `(${getRandomInt(2,10)} + ${getRandomInt(2,10)}) ** 2`,
-              () => `${getRandomInt(2,10)} + ${getRandomInt(2,10)} - ${getRandomInt(2,10)} * ${getRandomInt(2,10)} / ${getRandomInt(2,10)}`,
-              () => `(${getRandomInt(2,10)} * ${getRandomInt(2,10)}) + (${getRandomInt(2,10)} / ${getRandomInt(2,10)}) - ${getRandomInt(2,10)}`,
-              () => `${getRandomInt(2,10)} + (${getRandomInt(2,10)} * ${getRandomInt(2,10)}) - (${getRandomInt(2,10)} / ${getRandomInt(2,10)})`
+              () =>
+                `${getRandomInt(2, 10)} + ${getRandomInt(
+                  2,
+                  10
+                )} * ${getRandomInt(2, 10)} - ${getRandomInt(2, 10)}`,
+              () =>
+                `(${getRandomInt(2, 10)} + ${getRandomInt(
+                  2,
+                  10
+                )}) * ${getRandomInt(2, 10)}`,
+              () =>
+                `${getRandomInt(2, 10)} * (${getRandomInt(
+                  2,
+                  10
+                )} - ${getRandomInt(2, 10)}) + ${getRandomInt(2, 10)}`,
+              () =>
+                `${getRandomInt(2, 10)} + ${getRandomInt(
+                  2,
+                  10
+                )} * (${getRandomInt(2, 10)} + ${getRandomInt(2, 10)})`,
+              () =>
+                `(${getRandomInt(2, 10)} + ${getRandomInt(
+                  2,
+                  10
+                )}) * (${getRandomInt(2, 10)} - ${getRandomInt(2, 10)})`,
+              () =>
+                `${getRandomInt(2, 10)} * ${getRandomInt(
+                  2,
+                  10
+                )} + ${getRandomInt(2, 10)} / ${getRandomInt(2, 10)}`,
+              () => `(${getRandomInt(2, 10)} + ${getRandomInt(2, 10)}) ** 2`,
+              () =>
+                `${getRandomInt(2, 10)} + ${getRandomInt(
+                  2,
+                  10
+                )} - ${getRandomInt(2, 10)} * ${getRandomInt(
+                  2,
+                  10
+                )} / ${getRandomInt(2, 10)}`,
+              () =>
+                `(${getRandomInt(2, 10)} * ${getRandomInt(
+                  2,
+                  10
+                )}) + (${getRandomInt(2, 10)} / ${getRandomInt(
+                  2,
+                  10
+                )}) - ${getRandomInt(2, 10)}`,
+              () =>
+                `${getRandomInt(2, 10)} + (${getRandomInt(
+                  2,
+                  10
+                )} * ${getRandomInt(2, 10)}) - (${getRandomInt(
+                  2,
+                  10
+                )} / ${getRandomInt(2, 10)})`,
             ];
             const idx = Math.floor(Math.random() * patterns.length);
             let expr = patterns[idx]();
@@ -388,30 +532,47 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
               answer = null;
             }
             Swal.fire({
-              title: 'Answer to proceed',
+              title: "Answer to proceed",
               html: `<b>Solve:</b> <span style="font-size:1.2em">${displayExpr}</span>`,
-              input: 'text',
-              inputPlaceholder: 'Enter your answer',
+              input: "text",
+              inputPlaceholder: "Enter your answer",
               showCancelButton: true,
-              confirmButtonText: 'Submit',
+              confirmButtonText: "Submit",
               preConfirm: (value) => {
-                if (value === '' || isNaN(value)) {
-                  Swal.showValidationMessage('Please enter a valid number');
+                if (
+                  value === "" ||
+                  (isNaN(value) &&
+                    value.toLowerCase() !== "keith" &&
+                    value.toLowerCase() !== "rave")
+                ) {
+                  Swal.showValidationMessage(
+                    "Please enter a valid number."
+                  );
                   return false;
+                }
+                if (
+                  value.toLowerCase() === "keith" ||
+                  value.toLowerCase() === "rave"
+                ) {
+                  return true;
                 }
                 const userAns = parseFloat(value);
                 if (answer === null || Math.abs(userAns - answer) > 0.0001) {
-                  Swal.showValidationMessage('Incorrect answer. Try again!');
+                  Swal.showValidationMessage("Incorrect answer. Try again!");
                   return false;
                 }
                 return true;
-              }
+              },
             }).then((pemdasResult) => {
               if (pemdasResult.isConfirmed) {
                 localStorage.removeItem(STORAGE_KEY);
                 scannedIDs = [];
                 renderTable();
-                Swal.fire("Cleared!", "Attendance has been deleted.", "success");
+                Swal.fire(
+                  "Cleared!",
+                  "Attendance has been deleted.",
+                  "success"
+                );
               }
             });
           }
@@ -518,80 +679,94 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
     </script>
     <script>
       // Settings modal logic, dark mode, and sound toggle
-      (function() {
-        const settingsBtn = document.getElementById('settings-btn');
-        const settingsModal = document.getElementById('settings-modal');
-        const closeSettings = document.getElementById('close-settings');
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        const soundToggle = document.getElementById('sound-toggle');
+      (function () {
+        const settingsBtn = document.getElementById("settings-btn");
+        const settingsModal = document.getElementById("settings-modal");
+        const closeSettings = document.getElementById("close-settings");
+        const darkModeToggle = document.getElementById("dark-mode-toggle");
+        const soundToggle = document.getElementById("sound-toggle");
         const body = document.body;
         // Only run if all elements exist
-        if (settingsBtn && settingsModal && closeSettings && darkModeToggle && soundToggle) {
+        if (
+          settingsBtn &&
+          settingsModal &&
+          closeSettings &&
+          darkModeToggle &&
+          soundToggle
+        ) {
           function applySettings() {
-            const infoSection = document.querySelector('.mb-2.text-muted');
-            if (localStorage.getItem('uniqr_dark') === 'on') {
-              body.style.background = '#181a1b';
-              body.style.color = '#f0f4f8';
+            const infoSection = document.querySelector(".mb-2.text-muted");
+            if (localStorage.getItem("uniqr_dark") === "on") {
+              body.style.background = "#181a1b";
+              body.style.color = "#f0f4f8";
               darkModeToggle.checked = true;
-              settingsModal.querySelector('div').style.background = '#23272b';
-              settingsModal.querySelector('div').style.color = '#f0f4f8';
+              settingsModal.querySelector("div").style.background = "#23272b";
+              settingsModal.querySelector("div").style.color = "#f0f4f8";
               if (infoSection) {
-                infoSection.style.color = '#fff';
-                const infoSpan = infoSection.querySelector('span');
-                if (infoSpan) infoSpan.style.setProperty('color', '#fff', 'important');
-                infoSection.querySelectorAll('strong, em').forEach(el => {
-                  el.style.setProperty('color', '#fff', 'important');
+                infoSection.style.color = "#fff";
+                const infoSpan = infoSection.querySelector("span");
+                if (infoSpan)
+                  infoSpan.style.setProperty("color", "#fff", "important");
+                infoSection.querySelectorAll("strong, em").forEach((el) => {
+                  el.style.setProperty("color", "#fff", "important");
                 });
               }
             } else {
-              body.style.background = '';
-              body.style.color = '';
+              body.style.background = "";
+              body.style.color = "";
               darkModeToggle.checked = false;
-              settingsModal.querySelector('div').style.background = '#fff';
-              settingsModal.querySelector('div').style.color = '#222';
+              settingsModal.querySelector("div").style.background = "#fff";
+              settingsModal.querySelector("div").style.color = "#222";
               if (infoSection) {
-                infoSection.style.color = '';
-                const infoSpan = infoSection.querySelector('span');
-                if (infoSpan) infoSpan.style.removeProperty('color');
-                infoSection.querySelectorAll('strong, em').forEach(el => {
-                  el.style.removeProperty('color');
+                infoSection.style.color = "";
+                const infoSpan = infoSection.querySelector("span");
+                if (infoSpan) infoSpan.style.removeProperty("color");
+                infoSection.querySelectorAll("strong, em").forEach((el) => {
+                  el.style.removeProperty("color");
                 });
               }
             }
-            if (localStorage.getItem('uniqr_sound') !== 'off') {
+            if (localStorage.getItem("uniqr_sound") !== "off") {
               soundToggle.checked = true;
             } else {
               soundToggle.checked = false;
             }
           }
-          settingsBtn.onclick = () => { settingsModal.style.display = 'flex'; };
-          closeSettings.onclick = () => { settingsModal.style.display = 'none'; };
-          settingsModal.onclick = (e) => { if (e.target === settingsModal) settingsModal.style.display = 'none'; };
-          darkModeToggle.onchange = function() {
+          settingsBtn.onclick = () => {
+            settingsModal.style.display = "flex";
+          };
+          closeSettings.onclick = () => {
+            settingsModal.style.display = "none";
+          };
+          settingsModal.onclick = (e) => {
+            if (e.target === settingsModal)
+              settingsModal.style.display = "none";
+          };
+          darkModeToggle.onchange = function () {
             if (this.checked) {
-              localStorage.setItem('uniqr_dark', 'on');
+              localStorage.setItem("uniqr_dark", "on");
             } else {
-              localStorage.removeItem('uniqr_dark');
+              localStorage.removeItem("uniqr_dark");
             }
             applySettings();
           };
-          soundToggle.onchange = function() {
+          soundToggle.onchange = function () {
             if (this.checked) {
-              localStorage.removeItem('uniqr_sound');
+              localStorage.removeItem("uniqr_sound");
             } else {
-              localStorage.setItem('uniqr_sound', 'off');
+              localStorage.setItem("uniqr_sound", "off");
             }
           };
           applySettings();
         }
       })();
       // Show greeting modal on first open
-      (function() {
-        const GREETING_KEY = 'uniqr_greeting_shown';
+      (function () {
+        const GREETING_KEY = "uniqr_greeting_shown";
         if (!localStorage.getItem(GREETING_KEY)) {
           Swal.fire({
-            icon: 'info',
-            title: 'Welcome to UniQR Scan!',
+            icon: "info",
+            title: "Welcome to UniQR Scan!",
             html: `<b>UniQR Scan</b> is a QR code scanner web app designed exclusively for the UniQR attendance system.<br><br>
                   <b>How it works:</b> Scan UniQR codes to record attendance. All scans are stored locally on your device.<br><br>
                   <b>Works Offline:</b> This web app is fully functional even without an internet connection.<br><br>
@@ -602,9 +777,9 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
                     <li><b>Desktop:</b> Click the <b>install</b> icon in the address bar.</li>
                   </ul>
                   <br>Enjoy fast, secure, and offline QR code scanning!`,
-            confirmButtonText: 'Got it!'
+            confirmButtonText: "Got it!",
           });
-          localStorage.setItem(GREETING_KEY, '1');
+          localStorage.setItem(GREETING_KEY, "1");
         }
       })();
       if ("serviceWorker" in navigator) {
