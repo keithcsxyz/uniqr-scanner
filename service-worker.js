@@ -58,7 +58,7 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       fetch(event.request).catch(() => {
         // For navigation requests, always serve the main page regardless of query parameters
-        return caches.match("/index.html") || caches.match("/");
+        return caches.match("https://keithcsxyz.github.io/uniqr-scanner/index.html");
       })
     );
   } else {
