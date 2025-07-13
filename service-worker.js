@@ -5,7 +5,7 @@ const PRECACHE_URLS = [
   "./",
   "./index.html",
   "https://keithcsxyz.github.io/uniqr-scanner/manifest.json",
-  "https://keithcsxyz.github.io/uniqr-scanner/favicon.ico",
+  "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/favicon.ico",
   "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
   "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
   "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/settings.png",
