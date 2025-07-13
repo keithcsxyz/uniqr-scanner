@@ -32,12 +32,12 @@ self.addEventListener("install", (event) => {
         const res = await fetch("/assets/sounds/beep.mp3");
         if (res.ok || res.status === 206) {
           await cache.put("/assets/sounds/beep.mp3", res.clone());
-          console.log("✅ beep.mp3 manually cached.");
+          //console.log("✅ beep.mp3 manually cached.");
         } else {
-          console.warn("⚠️ Failed to fetch beep.mp3:", res.status);
+          //console.warn("⚠️ Failed to fetch beep.mp3:", res.status);
         }
       } catch (err) {
-        console.error("❌ Error caching beep.mp3:", err);
+        //console.error("❌ Error caching beep.mp3:", err);
       }
     })()
   );
