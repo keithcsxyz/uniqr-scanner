@@ -8,12 +8,12 @@
   "theme_color": "#ddf6d2",
   "icons": [
     {
-      "src": "./assets/imgs/uniqr-scanner-icon512.png",
+      "src": "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "./assets/imgs/uniqr-scanner-icon192.png",
+      "src": "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon192.png",
       "sizes": "192x192",
       "type": "image/png"
     }
