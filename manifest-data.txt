@@ -1,0 +1,21 @@
+{
+  "name": "UniQR Attendance Scanner V2.8.0.6-20250710",
+  "short_name": "UniQR Scan",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ddf6d2",
+  "icons": [
+    {
+      "src": "/assets/imgs/uniqr-scanner-icon512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/imgs/uniqr-scanner-icon192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
