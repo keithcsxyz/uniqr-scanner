@@ -4,8 +4,7 @@ const CACHE_NAME = `uniqr-cache-${CACHE_VERSION}`;
 const PRECACHE_URLS = [
   "/",
   "/index.html",
-  "/manifest-data.txt",
-  "/manifest.php",
+  "/manifest.json",
   "/favicon.ico",
   "/icon512",
   "/icon192",
