@@ -15,15 +15,31 @@ const PRECACHE_URLS = [
   "/assets/css/bootstrap.min.css",
   "/assets/js/sweetalert2.all.min.js",
   "/assets/js/html5-qrcode.min.js",
-  "/qr-scanner-master/qr-scanner.min.js",
-  //"/assets/sounds/beep.mp3"
+  "/qr-scanner-master/qr-scanner.min.js"
+  // "/assets/sounds/beep.mp3" <- manually cached below
 ];
 
-// Install: Pre-cache files
+// ✅ Install: Pre-cache files and manually cache beep.mp3
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      await cache.addAll(PRECACHE_URLS);
+
+      // ✅ Manually fetch and cache beep.mp3
+      try {
+        const res = await fetch("/assets/sounds/beep.mp3");
+        if (res.ok || res.status === 206) {
+          await cache.put("/assets/sounds/beep.mp3", res.clone());
+          console.log("✅ beep.mp3 manually cached.");
+        } else {
+          console.warn("⚠️ Failed to fetch beep.mp3:", res.status);
+        }
+      } catch (err) {
+        console.error("❌ Error caching beep.mp3:", err);
+      }
+    })()
   );
 });
 
