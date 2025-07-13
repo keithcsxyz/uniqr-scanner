@@ -1,14 +1,14 @@
 {
-  "name": "UniQR Attendance Scanner V2.8.0.7-20250713",
+  "name": "UniQR Attendance Scanner V2.8.0.8-20250713",
   "short_name": "UniQR Scan",
-  "start_url": "https://keithcsxyz.github.io/uniqr-scanner/index.html",
+  "start_url": "https://scanner.uniqr.click/uniqr-scanner/index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ddf6d2",
   "icons": [
     {
-      "src": "https://keithcsxyz.github.io/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
+      "src": "https://scanner.uniqr.click/uniqr-scanner/assets/imgs/uniqr-scanner-icon512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
