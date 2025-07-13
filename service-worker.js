@@ -2,21 +2,21 @@ const CACHE_VERSION = "v2.8.1.0-20250713";
 const CACHE_NAME = `uniqr-cache-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./assets/imgs/favicon.ico",
-  "./assets/imgs/uniqr-scanner-icon512.png",
-  "./assets/imgs/uniqr-scanner-icon192.png",
-  "./assets/imgs/settings.png",
-  "./assets/imgs/apple-touch-icon-180x180.png",
-  "./assets/imgs/apple-touch-icon-120x120.png",
-  "./assets/imgs/apple-touch-icon-144x144.png",
-  "./assets/css/bootstrap.min.css",
-  "./assets/js/sweetalert2.all.min.js",
-  "./assets/js/html5-qrcode.min.js",
-  "./qr-scanner-master/qr-scanner.min.js",
-  "./assets/sounds/beep.mp3"
+  "/",
+  "/index.html",
+  "/manifest.json",
+  "/assets/imgs/favicon.ico",
+  "/assets/imgs/uniqr-scanner-icon512.png",
+  "/assets/imgs/uniqr-scanner-icon192.png",
+  "/assets/imgs/settings.png",
+  "/assets/imgs/apple-touch-icon-180x180.png",
+  "/assets/imgs/apple-touch-icon-120x120.png",
+  "/assets/imgs/apple-touch-icon-144x144.png",
+  "/assets/css/bootstrap.min.css",
+  "/assets/js/sweetalert2.all.min.js",
+  "/assets/js/html5-qrcode.min.js",
+  "/qr-scanner-master/qr-scanner.min.js",
+  "/assets/sounds/beep.mp3"
 ];
 
 // Install: Pre-cache files
