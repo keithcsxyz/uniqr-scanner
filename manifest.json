@@ -1,7 +1,7 @@
 {
   "name": "UniQR Attendance Scanner V2.8.1.4-20250713",
   "short_name": "UniQR Scan",
-  "start_url": "/"
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
