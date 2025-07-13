@@ -480,7 +480,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             })
             .catch((err) => {
               scanErrorDiv.textContent = "Failed to switch camera.";
-              console.error("Camera switch error:", err);
+              //console.error("Camera switch error:", err);
             });
         }
       });
@@ -502,7 +502,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
         } catch (err) {
           scanErrorDiv.textContent =
             "Unable to start camera. Please check camera permissions or try a different browser/device.";
-          console.error("Scanner start error:", err);
+          //console.error("Scanner start error:", err);
         }
       };
       QrScanner.hasCamera().then((hasCamera) => {
@@ -612,11 +612,11 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
           navigator.serviceWorker
             .register("/service-worker.js", { scope: "/" })
             .then((reg) => {
-              console.log("✅ Service Worker registered!", reg);
+              //console.log("✅ Service Worker registered!", reg);
               reg.update(); // Optional: Force SW update on page load
             })
             .catch((err) => {
-              console.error("❌ Service Worker registration failed:", err);
+              //console.error("❌ Service Worker registration failed:", err);
             });
         });
       }
