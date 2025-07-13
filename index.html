@@ -594,16 +594,15 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
       })();
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-            navigator.serviceWorker.register("/service-worker.js", {
-             scope: "/"
-            });
+          navigator.serviceWorker
+            .register("/service-worker.js", { scope: "/" })
             .then((reg) => {
-                console.log("Service Worker registered!", reg);
-                reg.update(); // 🔁 Force update check immediately
+              console.log("✅ Service Worker registered!", reg);
+              reg.update(); // Optional: Force SW update on page load
             })
-            .catch((err) =>
-                console.error("Service Worker registration failed:", err)
-            );
+            .catch((err) => {
+              console.error("❌ Service Worker registration failed:", err);
+            });
         });
       }
     </script>
