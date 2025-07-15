@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <!-----
@@ -658,7 +659,11 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
       });
       const startScanner = async () => {
         try {
-          await scanner.start();
+            await scanner.start(undefined, {
+            facingMode: "environment",
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+          });
           updateFlashAvailability();
           availableCameras = await QrScanner.listCameras(true);
           if (availableCameras.length > 1) {
