@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v2.8.2.0-20250713";
+const CACHE_VERSION = "v2.8.2.1-20250713";
 const CACHE_NAME = `uniqr-cache-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -15,6 +15,7 @@ const PRECACHE_URLS = [
   "/assets/css/bootstrap.min.css",
   "/assets/js/sweetalert2.all.min.js",
   "/assets/js/html5-qrcode.min.js",
+  "/assets/js/jsQR.js",
   "/qr-scanner-master/qr-scanner.min.js"
   // "/assets/sounds/beep.mp3" <- manually cached below
 ];
