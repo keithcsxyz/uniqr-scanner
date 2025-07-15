@@ -25,7 +25,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
     <meta charset="UTF-8" />
     <title>UniQR Scan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="manifest" href="/manifest.json?v=2.8.1.7-20250713" />
+    <link rel="manifest" href="/manifest.json?v=2.8.1.8-20250713" />
     <meta name="theme-color" content="#ddf6d2" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
@@ -280,7 +280,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             "
           >
             UniQR Code Attendance Scanner <br /><strong
-              >V2.8.1.7-20250713</strong
+              >V2.8.1.8-20250713</strong
             ><br />
             <span style="font-size: 0.8rem">&lt;/keith &amp; rave&gt;</span>
           </div>
@@ -299,6 +299,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
           autoplay
           muted
           playsinline
+          webkit-playsinline
           class="mb-4"
           style="width: 100%; max-width: 400px; border-radius: 8px"
         ></video>
@@ -663,11 +664,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
       });
       const startScanner = async () => {
         try {
-            await scanner.start(undefined, {
-            facingMode: "environment",
-            width: { ideal: 1280 },
-            height: { ideal: 720 },
-          });
+          await scanner.start();
           updateFlashAvailability();
           availableCameras = await QrScanner.listCameras(true);
           if (availableCameras.length > 1) {
