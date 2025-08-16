@@ -24,7 +24,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
     <meta charset="UTF-8" />
     <title>UniQR Scan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="manifest" href="/manifest.json?v=2.8.2.3-20250713" />
+    <link rel="manifest" href="/manifest.json?v=2.8.2.4-20250713" />
     <meta name="theme-color" content="#ddf6d2" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
@@ -286,7 +286,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             "
           >
             UniQR Code Attendance Scanner <br /><strong
-              >V2.8.2.3-20250713</strong
+              >V2.8.2.4-20250713</strong
             ><br />
             <span style="font-size: 0.8rem">&lt;/keith &amp; rave&gt;</span>
           </div>
@@ -699,9 +699,33 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
         const ctx = canvas.getContext("2d", { willReadFrequently: true });
         let running = true;
 
-        const scan = () => {
+        async function ensureStream() {
+          try {
+            if (!video.srcObject && navigator.mediaDevices?.getUserMedia) {
+              const constraints = {
+                audio: false,
+                video: {
+                  facingMode: "environment",
+                  width: { ideal: 1280 },
+                  height: { ideal: 720 },
+                },
+              };
+              const stream = await navigator.mediaDevices.getUserMedia(
+                constraints
+              );
+              video.srcObject = stream;
+              await video.play().catch(() => {});
+            }
+          } catch (e) {
+            // ignore; we'll retry
+          }
+        }
+
+        const scan = async () => {
           if (!running) return;
-          if (video.readyState >= 2) {
+          if (video.readyState < 2) {
+            await ensureStream();
+          } else {
             const vw = video.videoWidth;
             const vh = video.videoHeight;
             const targetW = Math.min(640, vw || 640);
@@ -710,14 +734,24 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             canvas.height = Math.round((vh || 480) * scale);
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            // Directly use RGBA data; jsQR can handle it. Avoid costly grayscale pass.
             const imageData = ctx.getImageData(
               0,
               0,
               canvas.width,
               canvas.height
             );
-            const code = jsQR(imageData.data, canvas.width, canvas.height);
+            let code = jsQR(imageData.data, canvas.width, canvas.height);
+
+            // If not found, try a fast grayscale pass for better contrast
+            if (!code) {
+              const d = imageData.data;
+              for (let i = 0; i < d.length; i += 4) {
+                const gray = (d[i] * 77 + d[i + 1] * 150 + d[i + 2] * 29) >> 8; // approx luminance
+                d[i] = d[i + 1] = d[i + 2] = gray;
+              }
+              code = jsQR(d, canvas.width, canvas.height);
+            }
+
             if (code && code.data) {
               addEntry(code.data.trim());
             }
@@ -730,6 +764,9 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
         };
       }
 
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        startCanvasFallback();
+      }
       QrScanner.hasCamera().then((hasCamera) => {
         if (hasCamera) {
           startScanner();
