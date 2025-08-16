@@ -24,7 +24,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
     <meta charset="UTF-8" />
     <title>UniQR Scan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="manifest" href="/manifest.json?v=2.8.2.2-20250713" />
+    <link rel="manifest" href="/manifest.json?v=2.8.2.3-20250713" />
     <meta name="theme-color" content="#ddf6d2" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
@@ -286,7 +286,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             "
           >
             UniQR Code Attendance Scanner <br /><strong
-              >V2.8.2.2-20250713</strong
+              >V2.8.2.3-20250713</strong
             ><br />
             <span style="font-size: 0.8rem">&lt;/keith &amp; rave&gt;</span>
           </div>
@@ -688,55 +688,46 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
           scanErrorDiv.textContent = "";
         } catch (err) {
           scanErrorDiv.textContent =
-            "Unable to start camera. Please check camera permissions or try a different browser/device.";
+            "Unable to start optimized scanner. Falling back to compatibility mode.";
+          startCanvasFallback();
           //console.error("Scanner start error:", err);
         }
       };
 
       function startCanvasFallback() {
         const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        let running = true;
 
-        setInterval(() => {
-          if (video.readyState === video.HAVE_ENOUGH_DATA) {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
+        const scan = () => {
+          if (!running) return;
+          if (video.readyState >= 2) {
+            const vw = video.videoWidth;
+            const vh = video.videoHeight;
+            const targetW = Math.min(640, vw || 640);
+            const scale = vw ? targetW / vw : 1;
+            canvas.width = targetW;
+            canvas.height = Math.round((vh || 480) * scale);
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            // Optionally apply grayscale/threshold
+            // Directly use RGBA data; jsQR can handle it. Avoid costly grayscale pass.
             const imageData = ctx.getImageData(
               0,
               0,
               canvas.width,
               canvas.height
             );
-            const data = imageData.data;
-
-            // Simple grayscale
-            for (let i = 0; i < data.length; i += 4) {
-              const gray =
-                0.3 * data[i] + 0.59 * data[i + 1] + 0.11 * data[i + 2];
-              data[i] = data[i + 1] = data[i + 2] = gray;
-            }
-
-            ctx.putImageData(imageData, 0, 0);
-            const grayImage = ctx.getImageData(
-              0,
-              0,
-              canvas.width,
-              canvas.height
-            );
-
-            const code = jsQR(grayImage.data, canvas.width, canvas.height);
-            if (code) {
+            const code = jsQR(imageData.data, canvas.width, canvas.height);
+            if (code && code.data) {
               addEntry(code.data.trim());
             }
           }
-        }, 1000); // every second
-      }
-
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-        startCanvasFallback();
+          setTimeout(scan, 250); // ~4 scans per second
+        };
+        scan();
+        return () => {
+          running = false;
+        };
       }
 
       QrScanner.hasCamera().then((hasCamera) => {
