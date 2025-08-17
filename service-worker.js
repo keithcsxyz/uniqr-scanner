@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v2.8.2.5-20250713";
+const CACHE_VERSION = "v2.8.2.6-20250713";
 const CACHE_NAME = `uniqr-cache-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
