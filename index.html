@@ -24,7 +24,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
     <meta charset="UTF-8" />
     <title>UniQR Scan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="manifest" href="/manifest.json?v=2.8.2.5-20250713" />
+    <link rel="manifest" href="/manifest.json?v=2.8.2.6-20250713" />
     <meta name="theme-color" content="#ddf6d2" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
@@ -280,11 +280,32 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             <input class="form-check-input" type="checkbox" id="sound-toggle" />
             <label class="form-check-label" for="sound-toggle">Sound On</label>
           </div>
-          <div class="mb-3" style="border-top:1px solid #e9ecef;padding-top:1rem;">
-            <label class="form-label mb-1" style="font-weight:600;">Officer</label>
-            <div style="display:flex;gap:.5rem;align-items:center;">
-              <span id="officer-name-display" style="font-weight:600;flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>
-              <button id="change-officer-btn" class="btn btn-sm btn-outline-primary" type="button">Change Name</button>
+          <div
+            class="mb-3"
+            style="border-top: 1px solid #e9ecef; padding-top: 1rem"
+          >
+            <label class="form-label mb-1" style="font-weight: 600"
+              >Officer</label
+            >
+            <div style="display: flex; gap: 0.5rem; align-items: center">
+              <span
+                id="officer-name-display"
+                style="
+                  font-weight: 600;
+                  flex: 1 1 auto;
+                  min-width: 0;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                "
+              ></span>
+              <button
+                id="change-officer-btn"
+                class="btn btn-sm btn-outline-primary"
+                type="button"
+              >
+                Change Name
+              </button>
             </div>
           </div>
 
@@ -297,7 +318,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             "
           >
             UniQR Code Attendance Scanner <br /><strong
-              >V2.8.2.5-20250713</strong
+              >V2.8.2.6-20250713</strong
             ><br />
             <span style="font-size: 0.8rem">&lt;/keith &amp; rave&gt;</span>
           </div>
@@ -479,7 +500,12 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        const officerPrefix = ((localStorage.getItem("uniqr_officer_name") || "").trim().toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_-]/g, "")) || "attendance";
+        const officerPrefix =
+          (localStorage.getItem("uniqr_officer_name") || "")
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "_")
+            .replace(/[^a-z0-9_-]/g, "") || "attendance";
         link.download = `${officerPrefix}_attendance.csv`;
         link.click();
         URL.revokeObjectURL(url);
@@ -620,6 +646,10 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
       const flashBtn = document.getElementById("flash-btn");
       const flashState = document.getElementById("flash-state");
       const cameraSwitchBtn = document.getElementById("camera-switch-btn");
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      let fallbackActive = false;
+      let fallbackFlashOn = false;
+      let stopFallback = null;
       let currentCamera = "environment";
       let availableCameras = [];
       const scanner = new QrScanner(
@@ -641,29 +671,68 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
           inversionMode: "both",
         }
       );
-      const updateFlashAvailability = () => {
-        scanner
-          .hasFlash()
-          .then((hasFlash) => {
-            flashBtn.style.display = hasFlash ? "inline-block" : "none";
-          })
-          .catch(() => {
-            flashBtn.style.display = "none";
-          });
-      };
-      flashBtn.addEventListener("click", () => {
-        scanner
-          .toggleFlash()
-          .then(() => {
-            const isFlashOn = scanner.isFlashOn();
-            flashState.textContent = isFlashOn ? "On" : "Off";
-            flashBtn.className = isFlashOn
+      const updateFlashAvailability = async () => {
+        try {
+          if (isIOS) {
+            const track =
+              video.srcObject &&
+              video.srcObject.getVideoTracks &&
+              video.srcObject.getVideoTracks()[0];
+            const caps =
+              track && track.getCapabilities ? track.getCapabilities() : null;
+            const hasTorch = !!(caps && caps.torch);
+            flashBtn.style.display = hasTorch ? "inline-block" : "none";
+            // Sync UI with current state
+            flashState.textContent = fallbackFlashOn ? "On" : "Off";
+            flashBtn.className = fallbackFlashOn
               ? "btn btn-warning btn-responsive"
               : "btn btn-secondary btn-responsive";
-          })
-          .catch(() => {
+          } else {
+            const hasFlash = await scanner.hasFlash();
+            flashBtn.style.display = hasFlash ? "inline-block" : "none";
+          }
+        } catch (e) {
+          flashBtn.style.display = "none";
+        }
+      };
+      flashBtn.addEventListener("click", async () => {
+        if (isIOS) {
+          try {
+            const track =
+              video.srcObject &&
+              video.srcObject.getVideoTracks &&
+              video.srcObject.getVideoTracks()[0];
+            if (!track || !track.getCapabilities || !track.applyConstraints) {
+              throw new Error("Torch not supported");
+            }
+            const caps = track.getCapabilities();
+            if (!caps.torch) {
+              throw new Error("Torch not supported");
+            }
+            const desired = !fallbackFlashOn;
+            await track.applyConstraints({ advanced: [{ torch: desired }] });
+            fallbackFlashOn = desired;
+            flashState.textContent = fallbackFlashOn ? "On" : "Off";
+            flashBtn.className = fallbackFlashOn
+              ? "btn btn-warning btn-responsive"
+              : "btn btn-secondary btn-responsive";
+          } catch (e) {
             scanErrorDiv.textContent = "Flash not supported on this device.";
-          });
+          }
+        } else {
+          scanner
+            .toggleFlash()
+            .then(() => {
+              const isFlashOn = scanner.isFlashOn();
+              flashState.textContent = isFlashOn ? "On" : "Off";
+              flashBtn.className = isFlashOn
+                ? "btn btn-warning btn-responsive"
+                : "btn btn-secondary btn-responsive";
+            })
+            .catch(() => {
+              scanErrorDiv.textContent = "Flash not supported on this device.";
+            });
+        }
       });
       cameraSwitchBtn.addEventListener("click", () => {
         if (availableCameras.length > 1) {
@@ -710,6 +779,8 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d", { willReadFrequently: true });
         let running = true;
+        fallbackActive = true;
+        fallbackFlashOn = false;
 
         async function ensureStream() {
           try {
@@ -727,6 +798,10 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
               );
               video.srcObject = stream;
               await video.play().catch(() => {});
+              // update flash availability now that we have a track
+              try {
+                updateFlashAvailability();
+              } catch (e) {}
             }
           } catch (e) {
             // ignore; we'll retry
@@ -773,11 +848,25 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
         scan();
         return () => {
           running = false;
+          fallbackActive = false;
+          // attempt to turn torch off when stopping fallback
+          try {
+            const track =
+              video.srcObject &&
+              video.srcObject.getVideoTracks &&
+              video.srcObject.getVideoTracks()[0];
+            if (track && track.applyConstraints) {
+              track
+                .applyConstraints({ advanced: [{ torch: false }] })
+                .catch(() => {});
+            }
+          } catch (e) {}
+          fallbackFlashOn = false;
         };
       }
 
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-        startCanvasFallback();
+      if (isIOS) {
+        stopFallback = startCanvasFallback();
       }
       QrScanner.hasCamera().then((hasCamera) => {
         if (hasCamera) {
@@ -799,7 +888,9 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
         const darkModeToggle = document.getElementById("dark-mode-toggle");
         const soundToggle = document.getElementById("sound-toggle");
         const changeOfficerBtn = document.getElementById("change-officer-btn");
-        const officerNameDisplay = document.getElementById("officer-name-display");
+        const officerNameDisplay = document.getElementById(
+          "officer-name-display"
+        );
         const body = document.body;
         // Only run if all elements exist
         if (
@@ -848,8 +939,10 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             } else {
               soundToggle.checked = false;
             }
-            const officerName = localStorage.getItem("uniqr_officer_name") || "(not set)";
-            if (officerNameDisplay) officerNameDisplay.textContent = officerName;
+            const officerName =
+              localStorage.getItem("uniqr_officer_name") || "(not set)";
+            if (officerNameDisplay)
+              officerNameDisplay.textContent = officerName;
           }
           settingsBtn.onclick = () => {
             settingsModal.style.display = "flex";
