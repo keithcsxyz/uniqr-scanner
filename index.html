@@ -24,7 +24,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
     <meta charset="UTF-8" />
     <title>UniQR Scan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="manifest" href="/manifest.json?v=2.8.2.4-20250713" />
+    <link rel="manifest" href="/manifest.json?v=2.8.2.5-20250713" />
     <meta name="theme-color" content="#ddf6d2" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
@@ -192,6 +192,10 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
       .code-outline-highlight {
         stroke: #27ae60 !important;
       }
+      /* Ensure SweetAlert2 dialogs appear above custom overlays */
+      .swal2-container {
+        z-index: 3000 !important;
+      }
     </style>
   </head>
   <body>
@@ -276,6 +280,13 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             <input class="form-check-input" type="checkbox" id="sound-toggle" />
             <label class="form-check-label" for="sound-toggle">Sound On</label>
           </div>
+          <div class="mb-3" style="border-top:1px solid #e9ecef;padding-top:1rem;">
+            <label class="form-label mb-1" style="font-weight:600;">Officer</label>
+            <div style="display:flex;gap:.5rem;align-items:center;">
+              <span id="officer-name-display" style="font-weight:600;flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>
+              <button id="change-officer-btn" class="btn btn-sm btn-outline-primary" type="button">Change Name</button>
+            </div>
+          </div>
 
           <div
             style="
@@ -286,7 +297,7 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             "
           >
             UniQR Code Attendance Scanner <br /><strong
-              >V2.8.2.4-20250713</strong
+              >V2.8.2.5-20250713</strong
             ><br />
             <span style="font-size: 0.8rem">&lt;/keith &amp; rave&gt;</span>
           </div>
@@ -468,7 +479,8 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "attendance.csv";
+        const officerPrefix = ((localStorage.getItem("uniqr_officer_name") || "").trim().toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_-]/g, "")) || "attendance";
+        link.download = `${officerPrefix}_attendance.csv`;
         link.click();
         URL.revokeObjectURL(url);
       }
@@ -786,6 +798,8 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
         const closeSettings = document.getElementById("close-settings");
         const darkModeToggle = document.getElementById("dark-mode-toggle");
         const soundToggle = document.getElementById("sound-toggle");
+        const changeOfficerBtn = document.getElementById("change-officer-btn");
+        const officerNameDisplay = document.getElementById("officer-name-display");
         const body = document.body;
         // Only run if all elements exist
         if (
@@ -793,7 +807,9 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
           settingsModal &&
           closeSettings &&
           darkModeToggle &&
-          soundToggle
+          soundToggle &&
+          changeOfficerBtn &&
+          officerNameDisplay
         ) {
           function applySettings() {
             const infoSection = document.querySelector(".mb-2.text-muted");
@@ -832,6 +848,8 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
             } else {
               soundToggle.checked = false;
             }
+            const officerName = localStorage.getItem("uniqr_officer_name") || "(not set)";
+            if (officerNameDisplay) officerNameDisplay.textContent = officerName;
           }
           settingsBtn.onclick = () => {
             settingsModal.style.display = "flex";
@@ -858,14 +876,79 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
               localStorage.setItem("uniqr_sound", "off");
             }
           };
+          changeOfficerBtn.onclick = async function () {
+            const prevDisplay = settingsModal.style.display;
+            settingsModal.style.display = "none";
+            try {
+              const current = localStorage.getItem("uniqr_officer_name") || "";
+              const { value: input, isDismissed } = await Swal.fire({
+                title: "Change Officer Name",
+                input: "text",
+                inputValue: current,
+                inputPlaceholder: "e.g., Keith",
+                inputAttributes: { autocapitalize: "words" },
+                allowOutsideClick: true,
+                allowEscapeKey: true,
+                confirmButtonText: "Save",
+                showCancelButton: true,
+                preConfirm: (val) => {
+                  const v = (val || "").trim();
+                  if (!v) {
+                    Swal.showValidationMessage("Name cannot be empty.");
+                  }
+                  return v;
+                },
+              });
+              if (!isDismissed) {
+                const name = (input || "").trim();
+                if (name) {
+                  localStorage.setItem("uniqr_officer_name", name);
+                  applySettings();
+                }
+              }
+            } finally {
+              // Restore settings modal visibility
+              settingsModal.style.display = prevDisplay || "flex";
+            }
+          };
           applySettings();
         }
       })();
-      // Show greeting modal on first open
+      // Prompt officer name first, then show greeting on first open
       (function () {
+        const OFFICER_KEY = "uniqr_officer_name";
         const GREETING_KEY = "uniqr_greeting_shown";
-        if (!localStorage.getItem(GREETING_KEY)) {
-          Swal.fire({
+
+        async function promptOfficerName() {
+          let name = "";
+          while (!name) {
+            const { value: input, isDismissed } = await Swal.fire({
+              title: "Enter Officer Name",
+              input: "text",
+              inputPlaceholder: "e.g., Keith",
+              inputAttributes: { autocapitalize: "words" },
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              confirmButtonText: "Save",
+              showCancelButton: false,
+              preConfirm: (val) => {
+                const v = (val || "").trim();
+                if (!v) {
+                  Swal.showValidationMessage("Name is required.");
+                }
+                return v;
+              },
+            });
+            if (isDismissed) break;
+            name = (input || "").trim();
+          }
+          if (name) {
+            localStorage.setItem(OFFICER_KEY, name);
+          }
+        }
+
+        async function showGreeting() {
+          await Swal.fire({
             icon: "info",
             title: "Welcome to UniQR Scan!",
             html: `<b>UniQR Scan</b> is a QR code scanner web app designed exclusively for the UniQR attendance system.<br><br>
@@ -882,6 +965,15 @@ In the silence of the source, Keith Renz D. Romblon and John Rave Arizobal left 
           });
           localStorage.setItem(GREETING_KEY, "1");
         }
+
+        (async () => {
+          if (!localStorage.getItem(OFFICER_KEY)) {
+            await promptOfficerName();
+          }
+          if (!localStorage.getItem(GREETING_KEY)) {
+            await showGreeting();
+          }
+        })();
       })();
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
